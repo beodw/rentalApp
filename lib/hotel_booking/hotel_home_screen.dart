@@ -85,6 +85,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
       'JA'
     ]
   ];
+
+  List<String> appBarTitles = [
+    'Explore',
+    'WishList',
+    'Notifications',
+    'Profile'
+  ];
   List<Widget> places_near_me = [
     Container(
       child: GestureDetector(
@@ -291,10 +298,10 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                 color: Colors.transparent,
               ),
               child: ListView.builder(
-                  itemCount: listOfListings.length,
+                  itemCount: 3,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.only(top: 60.0),
+                      padding: EdgeInsets.only(top: 0.0),
                       child: Container(
                         color: Colors.transparent,
                         child: index == 0
@@ -303,28 +310,64 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                                   padding: EdgeInsets.symmetric(
                                     vertical: 5.0,
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 5.0,
-                                        ),
-                                        child: Text(
-                                          'Categories',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 5.0,
+                                    ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Top Listings',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        Spacer(),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 10.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(5.0),
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: InkWell(
+                                                    splashColor: Colors.grey.withOpacity(0.5),
+                                                    onTap: () {
+                                                      print('View All Top Listings');
+                                                    },
+                                                    child: Container(
+                                                      height: 37,
+                                                      width: 60,
+                                                      child: Center(
+                                                        child: Text(
+                                                          'View All',
+                                                          style: TextStyle(
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 5.0, bottom: 0),
                                   child: Container(
-                                    height: 120,
+                                    height: 260,
                                     child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         shrinkWrap: true,
@@ -340,17 +383,122 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                                                       onTap: () {
                                                         //make call to back end using category string
                                                         //return list of listings
-                                                        print(listing_types.elementAt(index)[0]);
+
                                                         Navigator.push(
                                                           context,
                                                           MaterialPageRoute(builder: (context) => Scaffold(body: search_results())),
                                                         );
                                                       },
                                                       child: Container(
-                                                        height: 100,
-                                                        width: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: <Widget>[
+                                                            Align(
+                                                              alignment: Alignment.topRight,
+                                                              child: Container(
+                                                                width: 50,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.white,
+                                                                  borderRadius: BorderRadius.only(
+                                                                    topLeft: Radius.circular(0.0),
+                                                                    topRight: Radius.circular(15.0),
+                                                                    bottomLeft: Radius.circular(0.0),
+                                                                    bottomRight: Radius.circular(0.0),
+                                                                  ),
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: <Widget>[
+                                                                    Padding(
+                                                                      padding: EdgeInsets.only(right: 3.0),
+                                                                      child: Icon(
+                                                                        Icons.star,
+                                                                        size: 10.0,
+                                                                        color: Colors.orange,
+                                                                      ),
+                                                                    ),
+                                                                    Text('4.0'),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment: Alignment.bottomCenter,
+                                                              child: Container(
+                                                                height: 100.0,
+                                                                width: 250,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.only(
+                                                                    bottomRight: Radius.circular(
+                                                                      15.0,
+                                                                    ),
+                                                                  ),
+                                                                  color: Colors.white,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.only(top: 5.0),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: <Widget>[
+                                                                      Padding(
+                                                                        padding: EdgeInsets.symmetric(
+                                                                          horizontal: 5.0,
+                                                                        ),
+                                                                        child: Column(
+                                                                          children: <Widget>[
+                                                                            Text(
+                                                                              'Hedazi Villa',
+                                                                              style: TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 20.0,
+                                                                              ),
+                                                                            ),
+                                                                            Text(
+                                                                              'John Drive, Lumley',
+                                                                              style: TextStyle(
+                                                                                fontSize: 12.0,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.only(
+                                                                          right: 10.0,
+                                                                        ),
+                                                                        child: Column(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          children: <Widget>[
+                                                                            Container(
+                                                                              height: 50,
+                                                                              width: 100,
+                                                                              child: Text(
+                                                                                'Le 700 M / yr',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 15.0,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        height: 250,
+                                                        width: 250,
                                                         decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(30),
+                                                          borderRadius: BorderRadius.only(
+                                                            topLeft: Radius.circular(15),
+                                                            topRight: Radius.circular(15),
+                                                            bottomRight: Radius.circular(15),
+                                                            bottomLeft: Radius.circular(0),
+                                                          ),
                                                           image: DecorationImage(
                                                             fit: BoxFit.cover,
                                                             image: AssetImage('assets/hotel/${listing_types.elementAt(index)[1]}'),
@@ -368,17 +516,21 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Text(
-                                                      '${listing_types.elementAt(index)[0]}',
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                // Row(
+                                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                //   children: <Widget>[
+                                                //     Container(
+                                                //       width: 70,
+                                                //       child: Text(
+                                                //         '${listing_types.elementAt(index)[0]}',
+                                                //         style: TextStyle(
+                                                //           fontWeight: FontWeight.bold,
+                                                //         ),
+                                                //       ),
+                                                //     ),
+                                                //     Text('Le 20,000,000 / yr'),
+                                                //   ],
+                                                // ),
                                               ]),
                                             ),
                                           );
@@ -401,208 +553,167 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
                                 //   ),
                                 // ),
                               ])
-                            : Padding(
-                                padding: MediaQuery.of(context).orientation == Orientation.portrait ? EdgeInsets.only(left: 30, right: 30, bottom: listOfListings.length - 1 == index ? 20 : 5, top: 0) : EdgeInsets.only(left: 30, right: 30, bottom: 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    if (index == 1)
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 5,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Near You',
-                                              style: TextStyle(
-                                                fontSize: 25,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    Column(
+                            :
+
+                            // HotelListView(
+                            //     callback: () {},
+                            //     hotelData: hotelList[index],
+                            //     animation: animation,
+                            //     animationController: animationController!,
+                            //   ),
+
+                            Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 10.0, top: 5.0, left: 10.0, right: 2.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Container(
-                                          height: 250,
-                                          width: MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(0.5),
-                                                spreadRadius: 1,
-                                                blurRadius: 2,
-                                                offset: Offset(0.0, 1.0),
-                                              ),
-                                            ],
-                                            borderRadius: BorderRadius.circular(20.0),
-                                            // image: DecorationImage(
-                                            //   image: index % 2 == 0 ? AssetImage('assets/hotel/hotel_2.png') : AssetImage('assets/hotel/hotel_3.png'),
-                                            //   fit: BoxFit.cover,
-                                            // ),
-                                          ),
-                                          child: Stack(
-                                            children: <Widget>[
-                                              Center(
-                                                child: Stack(
-                                                  children: <Widget>[
-                                                    ClipRRect(
-                                                      borderRadius: BorderRadius.circular(20.0),
-                                                      child: Container(
-                                                        height: 250.0,
-                                                        width: MediaQuery.of(context).size.width,
-                                                        child: ListView.builder(
-                                                          itemCount: 5,
-                                                          scrollDirection: Axis.horizontal,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            return Container(
-                                                              decoration: BoxDecoration(
-                                                                image: DecorationImage(
-                                                                  image: index % 2 == 0 ? AssetImage('assets/hotel/hotel_2.png') : AssetImage('assets/hotel/hotel_3.png'),
-                                                                  fit: BoxFit.cover,
-                                                                ),
-                                                              ),
-                                                              width: MediaQuery.of(context).size.width - 60.0,
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Column(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: <Widget>[
-                                                        Padding(
-                                                          padding: EdgeInsets.only(bottom: 10.0),
-                                                          child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: <Widget>[
-                                                              for (int i = 0; i < 4; i++)
-                                                                Padding(
-                                                                  padding: EdgeInsets.symmetric(
-                                                                    horizontal: 3.0,
-                                                                  ),
-                                                                  child: ClipOval(
-                                                                    child: Container(
-                                                                      color: Colors.grey.withOpacity(0.3),
-                                                                      height: 10.0,
-                                                                      width: 10.0,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                        index == 1
+                                            ? Text(
+                                                'Near You',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25,
+                                                ),
+                                              )
+                                            : Text(
+                                                'Newly Vacant',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25,
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(top: 20, right: 20),
-                                                child: Align(
-                                                    alignment: Alignment.topRight,
-                                                    child: ClipOval(
-                                                      child: Material(
-                                                        color: Colors.transparent, // Button color
-                                                        child: InkWell(
-                                                          splashColor: Colors.white.withOpacity(0.7), // Splash color
-                                                          onTap: () {
-                                                            print('Liked');
-                                                          },
-                                                          child: SizedBox(
-                                                            height: 30,
-                                                            width: 30,
-                                                            child: Stack(
-                                                              children: <Widget>[
-                                                                Icon(
-                                                                  Icons.favorite_border,
-                                                                  color: Color.fromRGBO(154, 242, 245, 0.5),
-                                                                  size: 30.0,
-                                                                ),
-                                                                Icon(
-                                                                  Icons.favorite,
-                                                                  color: Colors.blueAccent.withOpacity(0.1),
-                                                                  size: 30.0,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            top: 10,
-                                          ),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: <Widget>[
-                                                  for (int i = 0; i < 5; i++)
-                                                    Icon(
-                                                      Icons.star,
-                                                      size: 15.0,
-                                                      color: Color(0XFF9AF2F5),
-                                                    ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      left: 5.0,
-                                                    ),
-                                                    child: Text(
-                                                      '4 stars',
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              splashColor: Colors.grey.withOpacity(0.5),
+                                              onTap: () {
+                                                print(index == 1 ? 'View Near You' : 'View Newly Vacant');
+                                              },
+                                              child: Container(
+                                                height: 37,
+                                                width: 60,
+                                                child: Center(
+                                                  child: Text(
+                                                    'View All',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
                                                     ),
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                              Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Hedazi Villa',
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        'Bar Junction, Levuma',
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Container(
+                                    height: 200.0,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 10,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 5.0,
+                                          ),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Container(
+                                                height: 150.0,
+                                                width: 200.0,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: AssetImage('assets/hotel/apartment.jpg'),
+                                                  ),
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(15.0),
+                                                    topRight: Radius.circular(15.0),
+                                                    bottomRight: Radius.circular(15.0),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: Container(
+                                                        width: 40,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.only(
+                                                            bottomRight: Radius.circular(15.0),
+                                                          ),
+                                                          color: Colors.white,
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            Padding(
+                                                              padding: EdgeInsets.only(right: 5.0),
+                                                              child: Icon(
+                                                                Icons.star,
+                                                                color: Colors.orange,
+                                                                size: 10.0,
+                                                              ),
+                                                            ),
+                                                            Text('4.0'),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 180,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      height: 35,
+                                                      width: 50,
+                                                      child: Text(
+                                                        'Wilson Manor',
+                                                        style: TextStyle(
+                                                          fontSize: 14.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: 35,
+                                                      width: 95,
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            'Le 600 M / yr',
+                                                            style: TextStyle(
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                       ),
                     );
                   }),
             ),
-          ),
-          Positioned(
-            child: buildFloatingSearchBar('Search a location...', Icon(Icons.place)),
           ),
         ],
       ),
@@ -709,41 +820,119 @@ class _HotelHomeScreenState extends State<HotelHomeScreen> with TickerProviderSt
       data: HotelAppTheme.buildLightTheme(),
       child: Container(
         child: Scaffold(
-          body: Stack(children: <Widget>[
-            Positioned(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.end,
+          appBar: AppBar(
+            elevation: 0.0,
+            title: Text(
+              '${appBarTitles[selectedSection]}',
+              style: TextStyle(
+                color: Colors.black87,
+              ),
+            ),
+            backgroundColor: Colors.white,
+          ),
+          body: sections.elementAt(selectedSection),
+          bottomNavigationBar: Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0.0, 1.0),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 5.0,
+                bottom: 10.0,
+                left: 20.0,
+                right: 20.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    height: MediaQuery.of(context).size.height / 2 - 50,
-                    // width: MediaQuery.of(context).size.width,
-                    color: Colors.brown.withOpacity(0.2),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedSection = 0;
+                      });
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.explore_sharp,
+                            color: selectedSection == 0 ? Colors.red : Colors.black87,
+                          ),
+                          Text('Explore'),
+                        ],
+                      ),
+                    ),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height / 2,
-                    // width: MediaQuery.of(context).size.width,
-                    color: Colors.blueAccent.withOpacity(0.2),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedSection = 1;
+                      });
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.favorite_sharp,
+                            color: selectedSection == 1 ? Colors.red : Colors.black87,
+                          ),
+                          Text('WishList'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedSection = 2;
+                      });
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.notifications_sharp,
+                            color: selectedSection == 2 ? Colors.red : Colors.black87,
+                          ),
+                          Text('Notifications'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedSection = 3;
+                      });
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 5.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.person_sharp,
+                            color: selectedSection == 3 ? Colors.red : Colors.black87,
+                          ),
+                          Text('Profile'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            sections.elementAt(selectedSection),
-          ]),
-          bottomNavigationBar: CurvedNavigationBar(
-            onTap: onSectionSelected,
-            backgroundColor: Colors.blueAccent.withOpacity(0.2), //Color(0XFF9AF2F5),
-            color: Colors.white,
-            index: selectedSection,
-            height: 50.0,
-            buttonBackgroundColor: Colors.white,
-            animationCurve: Curves.easeOutQuint,
-            animationDuration: Duration(milliseconds: 300),
-            items: [
-              Icon(Icons.search_outlined),
-              Icon(Icons.favorite_border_outlined),
-              Icon(Icons.inbox_outlined),
-              Icon(Icons.account_circle_outlined),
-            ],
           ),
         ),
       ),
